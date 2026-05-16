@@ -9,21 +9,22 @@ A comprehensive open-source collection of physical data models, standardized col
 While this repository provides static Excel templates and raw data structures, the full platform at **[mdatool.com](https://www.mdatool.com)** provides a comprehensive suite of 11 advanced utilities designed to accelerate data engineering pipelines, enforce governance, and automate schema generation.
 
 ### 🏗️ Core Schema & Conversion Tools
-1. **DDL Converter Engine:** Instantly transform raw SQL DDL dialects (Oracle, SQL Server, MySQL) into highly optimized PostgreSQL/Neon target schemas without manual string manipulation.
-2. **Prisma & ORM Schema Generator:** Automatically output clean, type-safe Prisma schemas and data models mapped directly to your enterprise database tables.
-3. **Automated Schema GUI Loader:** Import raw layouts, CSV data matrices, or legacy flat files via an intuitive browser interface to instantly generate destination structures.
+### 🏗️ Core Schema, Conversion & Parsing Tools
+1. **[DDL Converter Engine](https://www.mdatool.com/tools/ddl-converter):** Instantly transform raw legacy DDL dialects (Oracle, SQL Server, MySQL) into highly optimized PostgreSQL/Neon target schemas.
+2. **[HL7 v2 Parser](https://www.mdatool.com/tools/hl7-parser):** Convert complex, pipe-delimited legacy clinical HL7 messages directly into structured relational database schemas or JSON layouts.
+3. **[Schema Diff Tool](https://www.mdatool.com/tools/schema-diff):** Compare two database environments or schema iterations side-by-side to track drift, missing columns, or data type mismatches instantly.
 
-### 📋 Data Governance & Standards Tools
-4. **ISO-11179 Physical Naming Engine:** Enforce strict corporate data governance by converting human-readable business terms into standardized, enterprise-approved abbreviations (e.g., automatically resolving `Member Code` to `mbr_cd` or `Billing Provider NPI` to `bill_prov_npi`).
-5. **SQL Linter & Quality Checker:** Scan database code to catch unapproved shorthand, missing primary/foreign keys, and anti-patterns before they reach code review.
-6. **Custom Abbreviation Dictionary Manager:** Create, update, and manage your organization's unique shorthand conventions across team boundaries to prevent column-naming divergence.
-7. **Enterprise Glossary Browser:** Explore over 37,288+ pre-loaded, expert-curated healthcare, pharmacy, and corporate data definitions.
+### 📋 Data Governance, Standardization & Quality
+4. **[SQL Linter](https://www.mdatool.com/tools/sql-linter):** Scan database code automatically to flag naming deviations, missing primary keys, unapproved shorthand, and performance anti-patterns.
+5. **[Naming Auditor](https://www.mdatool.com/tools/naming-auditor):** Evaluate existing enterprise schemas against standardized data models to score corporate data governance compliance.
+6. **[Bulk Sanitizer](https://www.mdatool.com/tools/bulk-sanitizer):** Cleanse, mask, and standardize messy raw metadata strings and column fields in bulk to prepare them for production systems.
+7. **[Physical Name Generator](https://www.mdatool.com/tools/generator):** Input standard business terms and instantly output ISO-11179 compliant, `snake_case` physical abbreviations (e.g., converting `Member Code` to `mbr_cd`).
 
-### 🚀 Advanced Integration & Export Utilities
-8. **AI-Powered Data Modeler:** Leverage specialized machine-learning context layers to automatically draft complex mapping structures between legacy EHR inputs and modern analytics tables.
-9. **Automated Data Pipeline Sync:** Seamlessly pull your approved schemas directly into Next.js or cloud-native environments via specialized developer pipelines.
-10. **Multi-Format Matrix Exporter:** Download physical schema blueprints, metadata indexes, and validation rules instantly as production-ready CSV, Excel, or JSON structures.
-11. **Team Workspace Collaboration Tool:** Manage up to 5 seats with shared glossary controls, centralized team naming governance, and detailed usage analytics.
+### 🩺 Specialized Healthcare & Analytics Utilities
+8. **[AI-Powered Data Modeler](https://www.mdatool.com/tools/modeling):** Leverage specialized machine-learning context layers to automatically draft complex mapping structures between legacy healthcare inputs and modern analytics tables.
+9. **[HCC Calculator](https://www.mdatool.com/tools/hcc-calculator):** Programmatically evaluate Hierarchical Condition Categories (HCC) risk adjustment scores based on patient demographic and diagnostic profiles.
+10. **[ICD-10 Search Engine](https://www.mdatool.com/tools/icd10-search):** A high-speed technical reference portal to lookup, validate, and verify complex clinical ICD-10 diagnostic and procedural codes.
+11. **[NPI Lookup Utility](https://www.mdatool.com/tools/npi-lookup):** Directly query, verify, and validate National Provider Identifier (NPI) registry datasets, provider taxonomies, and credentialing statuses.
 
 ---
 
@@ -38,3 +39,5 @@ This repository hosts baseline 200-record dictionary and abbreviation templates 
 ## 🔗 Live Interactive Tools & Deep Links
 For the fully searchable data dictionary interface and automated database mapping utilities, visit the core portal:
 👉 **[https://www.mdatool.com](https://www.mdatool.com)**
+
+
