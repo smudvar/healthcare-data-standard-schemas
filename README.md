@@ -75,4 +75,31 @@ CREATE TABLE clm_svc_ln (
 CREATE INDEX idx_clm_hdr_mbr ON clm_hdr(mbr_cd);
 CREATE INDEX idx_clm_hdr_npi ON clm_hdr(bill_prov_npi);
 
+### 2. Type-Safe Prisma Schema Blueprint
+For teams developing inside modern **Next.js** web stacks, this blueprint maps your physical database layers seamlessly into type-safe application models.
 
+```prisma
+// Prisma data model representation for mdatool enterprise synchronization
+model ClaimHeader {
+  claimControlNumber  String           @id @map("clm_ctrl_num") @db.VarChar(50)
+  memberCode          String           @map("mbr_cd") @db.VarChar(32)
+  billingProviderNpi  String           @map("bill_prov_npi") @db.Char(10)
+  placeOfService      String           @map("pos_cd") @db.Char(2)
+  typeOfBill          String?          @map("tob_cd") @db.Char(4)
+  totalCharges        Decimal          @map("clm_tot_chg_amt") @db.Decimal(12, 2)
+  serviceLines        ClaimServiceLine[]
+
+  @@index([memberCode], map: "idx_clm_hdr_mbr")
+  @@map("clm_hdr")
+}
+
+model ClaimServiceLine {
+  id                  String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid @map("clm_svc_ln_id")
+  claimControlNumber  String       @map("clm_ctrl_num")
+  lineNumber          Int          @map("ln_num")
+  revenueCode         String?      @map("rev_cd") @db.Char(4)
+  procedureCode       String       @map("proc_cd") @db.VarChar(15)
+  claimHeader         ClaimHeader  @relation(fields: [claimControlNumber], references: [claimControlNumber], onDelete: Cascade)
+
+  @@map("clm_svc_ln")
+}
