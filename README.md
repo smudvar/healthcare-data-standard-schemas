@@ -40,4 +40,39 @@ This repository hosts baseline 200-record dictionary and abbreviation templates 
 For the fully searchable data dictionary interface and automated database mapping utilities, visit the core portal:
 👉 **[https://www.mdatool.com](https://www.mdatool.com)**
 
+## 💻 Production Code Blueprints & DDL Examples
+
+To demonstrate how to translate these enterprise standards into a modern relational architecture, see the implementation blueprints below optimized for **PostgreSQL (Neon)** and modern ORMs.
+
+### 1. PostgreSQL DDL (Medical Claims Core)
+This script demonstrates the physical implementation of the `837P/837I` medical claims data model using strict `snake_case` structural naming conventions and your standardized, descriptive abbreviations.
+
+```sql
+-- Core enterprise claims table structure
+CREATE TABLE clm_hdr (
+    clm_ctrl_num         VARCHAR(50) PRIMARY KEY, -- CLM01 Submitter Claim Control Number
+    mbr_cd               VARCHAR(32) NOT NULL,    -- Standardized Member Code cross-reference
+    bill_prov_npi        CHAR(10) NOT NULL,       -- 10-Digit National Provider Identifier
+    pos_cd               CHAR(2) NOT NULL,        -- Place of Service (e.g., 11=Office, 21=Inpatient)
+    tob_cd               CHAR(4),                 -- Type of Bill (Institutional specific placeholder)
+    clm_tot_chg_amt      NUMERIC(12, 2) NOT NULL, -- Total Claimed Charges
+    src_sys_id           VARCHAR(20) DEFAULT 'X12_837',
+    rec_crt_ts           TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Service line detail table (1:M Relationship)
+CREATE TABLE clm_svc_ln (
+    clm_svc_ln_id        BIGSERIAL PRIMARY KEY,
+    clm_ctrl_num         VARCHAR(50) REFERENCES clm_hdr(clm_ctrl_num) ON DELETE CASCADE,
+    ln_num               INT NOT NULL,            -- Service Line Number (LX segment loop 2400)
+    rev_cd               CHAR(4),                 -- Institutional Revenue Code
+    proc_cd              VARCHAR(15) NOT NULL,    -- HCPCS/CPT Procedure Code
+    diag_cd_ptr          VARCHAR(4) NOT NULL,     -- Pointer linking to header diagnosis fields
+    line_chg_amt         NUMERIC(12, 2) NOT NULL
+);
+
+-- Highly optimized indexes for fast claim queries
+CREATE INDEX idx_clm_hdr_mbr ON clm_hdr(mbr_cd);
+CREATE INDEX idx_clm_hdr_npi ON clm_hdr(bill_prov_npi);
+
 
